@@ -1,4 +1,8 @@
+import Gistfile1
+
 type Board = [[Int]]
+
+source = Gistfile1.main
 
 {-main = do  
     putStrLn "Insert Soduko"  
@@ -31,7 +35,7 @@ example = [[0,0,0,0,0,0,0,0,0],
 --solve ::
 
 checkRow :: Board -> Int -> Int -> Bool
-checkRow board row value = value `elem` (board !! row)
+checkRow board row value = value `elem` (board !! (row - 1))
 
 {-
 checkColumn1 :: Board -> Int -> Int -> Bool
@@ -44,7 +48,7 @@ checkColumn1 board column value = checkColumn' board 0 column value
 -}
 
 checkColumn :: Board -> Int -> Int -> Bool
-checkColumn grid column value = value `elem` checkColumn' grid column 
+checkColumn grid column value = value `notElem` checkColumn' grid column 
    where 
       checkColumn' [] _ = []
       checkColumn' (x:xs) column = (x !! (column-1)) : checkColumn' xs column
@@ -53,3 +57,6 @@ checkColumn grid column value = value `elem` checkColumn' grid column
     putStrLn "Insert Soduko"  
     sudokuinput <- getLine  
     putStrLn (sudokuinput)-}
+
+
+
