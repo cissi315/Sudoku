@@ -1,8 +1,8 @@
-import Gistfile1
+--import Gistfile1
 
 type Board = [[Int]]
 
-source = Gistfile1.main
+--source = Gistfile1.main
 
 {-main = do  
     putStrLn "Insert Soduko"  
@@ -35,7 +35,7 @@ example = [[0,0,0,0,0,0,0,0,0],
 --solve ::
 
 checkRow :: Board -> Int -> Int -> Bool
-checkRow board row value = value `elem` (board !! (row - 1))
+checkRow board row value = value `notElem` (board !! (row - 1))
 
 {-
 checkColumn1 :: Board -> Int -> Int -> Bool
@@ -48,15 +48,21 @@ checkColumn1 board column value = checkColumn' board 0 column value
 -}
 
 checkColumn :: Board -> Int -> Int -> Bool
-checkColumn grid column value = value `notElem` checkColumn' grid column 
+checkColumn board column value = value `notElem` checkColumn' board column 
    where 
       checkColumn' [] _ = []
       checkColumn' (x:xs) column = (x !! (column-1)) : checkColumn' xs column
 
-{-main = do  
-    putStrLn "Insert Soduko"  
-    sudokuinput <- getLine  
-    putStrLn (sudokuinput)-}
-
-
-
+checkBox :: Board -> Int -> Int -> Int -> Bool
+checkBox board row column value
+    | row <= 3 && row > 0 && column <= 3 && column > 0 = value `notElem` checkBox' board 1 1
+    | row <= 6 && row > 3 && column <= 3 && column > 0 = value `notElem` checkBox' board 4 1
+    | row <= 9 && row > 6 && column <= 3 && column > 0 = value `notElem` checkBox' board 7 1
+    | row <= 3 && row > 0 && column <= 6 && column > 3 = value `notElem` checkBox' board 1 4
+    | row <= 6 && row > 3 && column <= 6 && column > 3 = value `notElem` checkBox' board 4 4
+    | row <= 9 && row > 6 && column <= 6 && column > 3 = value `notElem` checkBox' board 7 4
+    | row <= 3 && row > 0 && column <= 9 && column > 6 = value `notElem` checkBox' board 1 7
+    | row <= 6 && row > 3 && column <= 9 && column > 6 = value `notElem` checkBox' board 4 7
+    | otherwise = value `notElem` checkBox' board 7 7
+        where
+            checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++ take 3 (drop (column-1) (board !! (row+1)))
