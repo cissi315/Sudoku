@@ -35,8 +35,10 @@ example = [[0,3,0,8,2,0,0,1,0],
            [1,0,5,0,0,0,4,7,0],
            [0,8,0,1,0,4,0,3,5]]
 
+{- 
 solve :: Board -> Board
 solve board = solve' board  
+-}
 
 checkRow :: Board -> Int -> Int -> Bool
 checkRow board row value = value `notElem` (board !! (row - 1))
