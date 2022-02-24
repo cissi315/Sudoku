@@ -9,29 +9,33 @@ type Board = [[Int]]
     sudokuinput <- getLine  
     putStrLn (sudokuinput)-}
 
-boardempty :: [[Integer]]
+boardempty :: Board 
 boardempty = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
 example :: Board
-example = [[0,0,0,0,0,0,0,0,0],
-           [0,4,6,1,8,2,5,9,3],
-           [3,2,0,9,5,6,4,8,7],
-           [7,3,5,4,0,1,9,6,0],
-           [0,6,1,0,9,8,7,3,4],
-           [4,0,9,5,3,7,8,1,2],
-           [2,9,8,0,7,4,6,5,1],
-           [1,5,4,0,0,9,2,7,8],
-           [8,7,0,6,2,5,3,4,9]]
+example = [[5, 4, 0, 9, 2, 0, 8, 0, 6],
+           [2, 1, 9, 6, 0, 7, 0, 4, 3],
+           [0, 7, 0, 3, 5, 0, 2, 1, 0],
+           
+           [9, 0, 7, 4, 0, 5, 3, 2, 1],
+           [0, 6, 1, 7, 9, 0, 6, 0, 4],
+           [6, 5, 4, 1, 3, 2, 0, 8, 0],
+           
+           [7, 6, 5, 0, 4, 3, 1, 9, 0],
+           [4, 0, 2, 8, 1, 9, 7, 0, 5],
+           [1, 9, 0, 5, 7, 0, 4, 3, 2]]
 --solve ::
 
 checkRow :: Board -> Int -> Int -> Bool
@@ -66,3 +70,8 @@ checkBox board row column value
     | otherwise = value `notElem` checkBox' board 7 7
         where
             checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++ take 3 (drop (column-1) (board !! (row+1)))
+
+checkRules :: Board -> Int -> Int -> Int -> Bool
+checkRules board row column value = checkBox board row column value && checkColumn board column value && checkRow board row value 
+
+
