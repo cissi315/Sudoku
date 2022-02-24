@@ -9,11 +9,7 @@ type Board = [[Int]]
     sudokuinput <- getLine  
     putStrLn (sudokuinput)-}
 
-<<<<<<< HEAD
-boardempty :: Board 
-=======
 boardempty :: Board
->>>>>>> 9342ef9c22ea98d934e24c4158eb30c72560b311
 boardempty = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,20 +25,6 @@ boardempty = [
     ]
 
 example :: Board
-<<<<<<< HEAD
-example = [[5, 4, 0, 9, 2, 0, 8, 0, 6],
-           [2, 1, 9, 6, 0, 7, 0, 4, 3],
-           [0, 7, 0, 3, 5, 0, 2, 1, 0],
-           
-           [9, 0, 7, 4, 0, 5, 3, 2, 1],
-           [0, 6, 1, 7, 9, 0, 6, 0, 4],
-           [6, 5, 4, 1, 3, 2, 0, 8, 0],
-           
-           [7, 6, 5, 0, 4, 3, 1, 9, 0],
-           [4, 0, 2, 8, 1, 9, 7, 0, 5],
-           [1, 9, 0, 5, 7, 0, 4, 3, 2]]
---solve ::
-=======
 example = [[0,3,0,8,2,0,0,1,0],
            [0,6,1,4,5,7,8,2,3],
            [8,7,0,0,0,1,0,0,0],
@@ -55,7 +37,6 @@ example = [[0,3,0,8,2,0,0,1,0],
 
 solve :: Board -> Board
 solve board = solve' board  
->>>>>>> 9342ef9c22ea98d934e24c4158eb30c72560b311
 
 checkRow :: Board -> Int -> Int -> Bool
 checkRow board row value = value `notElem` (board !! (row - 1))
@@ -80,12 +61,10 @@ checkBox board row column value
         where
             checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++ take 3 (drop (column-1) (board !! (row+1)))
 
-<<<<<<< HEAD
 checkRules :: Board -> Int -> Int -> Int -> Bool
 checkRules board row column value = checkBox board row column value && checkColumn board column value && checkRow board row value 
 
 
-=======
 --Alternativ
 {-
 checkColumn1 :: Board -> Int -> Int -> Bool
@@ -96,4 +75,26 @@ checkColumn1 board column value = checkColumn' board 0 column value
             | value == (board !! row !! column) = False
             | otherwise = checkColumn' board (row+1) column value 
 -}
->>>>>>> 9342ef9c22ea98d934e24c4158eb30c72560b311
+
+
+find0 :: Board -> (Int, Int)
+find0 board = (row board, column (board !! (row board - 1)))
+
+row :: Board -> Int
+row [] = 0
+row board@(x:xs) 
+  | 0 `elem` (board !! 0) = 1 
+  | 0 `elem` (board !! 1) = 2
+  | 0 `elem` (board !! 2) = 3
+  | 0 `elem` (board !! 3) = 4
+  | 0 `elem` (board !! 4) = 5
+  | 0 `elem` (board !! 5) = 6
+  | 0 `elem` (board !! 6) = 7
+  | 0 `elem` (board !! 7) = 8
+  | otherwise = 9
+
+column :: [Int] -> Int 
+column [] = 0
+column (x:xs) 
+        | x == 0 = 9 - length xs
+        | otherwise = column xs
