@@ -82,7 +82,7 @@ find0 board = (row board, column (board !! (row board - 1)))
 
 row :: Board -> Int
 row [] = 0
-row board@(x:xs) 
+row board
   | 0 `elem` (board !! 0) = 1 
   | 0 `elem` (board !! 1) = 2
   | 0 `elem` (board !! 2) = 3
