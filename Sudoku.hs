@@ -101,3 +101,19 @@ column [] = 0
 column (x:xs) 
         | x == 0 = 9 - length xs
         | otherwise = column xs
+        
+
+
+
+insert :: Board -> Int -> Int -> Int -> Board
+insert [] _ _ _ = []
+insert board column row value = take (row - 1) board ++ [insertAux (board !! (row-1)) column value] ++ drop row board
+    where insertAux :: [Int] -> Int -> Int -> [Int]
+          insertAux [] _ _ = []
+          insertAux (x:xs) c value
+               | checkRules board row column value = take (c - 1) (x:xs) ++ [value] ++ drop c (x:xs)
+               | otherwise = x:xs
+
+
+replace :: Int -> a -> [a] -> [a]
+replace position value board = take (position-1) board ++ [value] ++ drop position board
