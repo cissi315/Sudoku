@@ -1,10 +1,7 @@
---import Gistfile1
---source = Gistfile1.main
-
-module Sudoku(solve, insert, validMove) where 
-import SudokuExample
+module Logic(Board, solve, insert, validMove, validInput) where 
 
 type Board = [[Int]]
+
 
 solve :: Board -> Board
 solve board 
@@ -87,3 +84,7 @@ validMove board row column value
                 | (board !! (row-1) !! (column-1)) == value = True 
                 | otherwise = False
 
+validInput :: String -> String -> String -> Bool
+validInput row column value = (row `elem` list) && (column `elem` list) && (value `elem` list)
+    where
+        list = map show [1..9]

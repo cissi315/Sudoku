@@ -1,6 +1,6 @@
-module SudokuExample(boardEasy, boardMedium, boardHard, boardExpert, boardEasyFinish) where 
+module Boards(boardEasy, boardMedium, boardHard, boardExpert, boardEasyFinish) where 
 
-type Board = [[Int]]
+import Logic
 
 boardEasy :: Board
 boardEasy = [[0,3,0,8,2,0,0,1,0],
