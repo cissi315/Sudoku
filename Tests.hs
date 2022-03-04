@@ -14,6 +14,7 @@ test2 = TestCase $ assertEqual "solve boardExpert"
              [9,1,5,3,2,4,6,8,7],[6,8,3,1,7,9,2,5,4],[4,2,7,5,8,6,9,1,3]] (Logic.solve boardExpert)
 
 -- solve
+-- an unsolvable Sudoku shall return a empty list
 test3 = TestCase $ assertEqual "solve boardImpossible"
             [[]] (Logic.solve boardImpossible)
 
@@ -23,6 +24,7 @@ test4 = TestCase $ assertEqual "insert board row column value"
              [4,0,3,5,7,8,9,6,0],[1,0,5,0,0,0,4,7,0],[0,8,0,1,0,4,0,3,5]] (Logic.insert boardEasy 1 1 5)
 
 -- insert
+-- the insertion function is able to insert a number greater than 9 but will not pass through other functions to the final board
 test5 = TestCase $ assertEqual "insert board row column value"
             [[500,3,0,8,2,0,0,1,0],[0,6,1,4,5,7,8,2,3],[8,7,0,0,0,1,0,0,0],[2,4,8,0,0,3,0,5,7],[6,1,0,2,8,0,0,9,0],[0,0,0,7,4,0,0,8,0],
              [4,0,3,5,7,8,9,6,0],[1,0,5,0,0,0,4,7,0],[0,8,0,1,0,4,0,3,5]] (Logic.insert boardEasy 1 1 500)
@@ -39,7 +41,6 @@ test7 = TestCase $ assertEqual "checkColumn board column value"
 test8 = TestCase $ assertEqual "checkRules board row column value"
             True (Logic.checkBox boardEasy 1 1 5)
 
-
 -- checkRules
 test9 = TestCase $ assertEqual "checkRules board row column value"
             True (Logic.checkRules boardEasy 1 1 5)
@@ -49,6 +50,7 @@ test10 = TestCase $ assertEqual "find0 board"
             (1,1) (Logic.find0 boardEasy)
 
 -- find0
+-- (9,0) is our base case which indicates that all of the cells are occupied
 test11 = TestCase $ assertEqual "find0 board"
             (9,0) (Logic.find0 boardEasyFinish)
 
