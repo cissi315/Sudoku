@@ -1,7 +1,10 @@
-module Boards(boardEasy, boardMedium, boardHard, boardExpert, boardEasyFinish) where 
+module Boards(boardEasy, boardMedium, boardHard, boardExpert) where 
 
 import Logic
 
+ {- boardEasy
+     Example of an easy Sudoku board.
+  -}
 boardEasy :: Board
 boardEasy = [[0,3,0,8,2,0,0,1,0],
            [0,6,1,4,5,7,8,2,3],
@@ -13,6 +16,9 @@ boardEasy = [[0,3,0,8,2,0,0,1,0],
            [1,0,5,0,0,0,4,7,0],
            [0,8,0,1,0,4,0,3,5]]
 
+ {- boardMedium
+     Example of a medium Sudoku board.
+  -}
 boardMedium :: Board
 boardMedium = [
         [0, 1, 0, 0, 0, 0, 0, 0, 5],
@@ -28,6 +34,9 @@ boardMedium = [
         [6, 3, 0, 1, 7, 9, 0, 0, 0]
     ]
 
+{- boardHard
+     Example of a hard Sudoku board.
+  -}
 boardHard :: Board
 boardHard = [
            [0,0,8,1,5,0,9,0,2],
@@ -40,6 +49,9 @@ boardHard = [
            [0,4,0,0,0,0,0,2,0],
            [2,0,6,0,9,4,3,0,0]]
 
+{- boardExpert
+     Example of a expert Sudoku board.
+  -}
 boardExpert :: Board
 boardExpert = [
         [0, 0, 2, 0, 0, 8, 0, 0, 9],
@@ -56,7 +68,6 @@ boardExpert = [
     ]
 
 -- For testing
-
 boardEasyFinish :: Board
 boardEasyFinish = [
            [0,3,4,8,2,9,7,1,6],
@@ -69,6 +80,7 @@ boardEasyFinish = [
            [1,9,5,6,3,2,4,7,8],
            [7,8,6,1,9,4,2,3,5]]
 
+-- For testing
 boardempty :: Board
 boardempty = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
