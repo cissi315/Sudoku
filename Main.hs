@@ -1,4 +1,3 @@
-module Main(printBoard, game, main) where 
 import Logic
 import Boards
 

@@ -1,4 +1,4 @@
-module Boards(boardEasy, boardMedium, boardHard, boardExpert) where 
+module Boards(boardEasy, boardMedium, boardHard, boardExpert, boardImpossible, boardEasyFinish) where 
 
 import Logic
 
@@ -70,7 +70,7 @@ boardExpert = [
 -- For testing
 boardEasyFinish :: Board
 boardEasyFinish = [
-           [0,3,4,8,2,9,7,1,6],
+           [5,3,4,8,2,9,7,1,6],
            [9,6,1,4,5,7,8,2,3],
            [8,7,2,3,6,1,5,4,9],
            [2,4,8,9,1,3,6,5,7],
@@ -95,3 +95,16 @@ boardempty = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
+
+-- Made for testing. Unable to solve.
+boardImpossible :: Board
+boardImpossible = [
+           [0,3,5,8,2,9,7,1,6],
+           [9,6,1,4,5,7,8,2,3],
+           [8,7,2,3,6,1,5,4,9],
+           [2,4,8,9,1,3,6,5,7],
+           [6,1,7,2,8,5,3,9,4],
+           [3,5,9,7,4,6,1,8,2],
+           [4,2,3,5,7,8,9,6,1],
+           [1,9,5,6,3,2,4,7,8],
+           [7,8,6,1,9,4,2,3,5]]

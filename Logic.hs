@@ -1,5 +1,6 @@
 module Logic where 
 
+
 {- a Sudoku board conisting of numbers represented as lists whithin a list.
  -}
 type Board = [[Int]]
