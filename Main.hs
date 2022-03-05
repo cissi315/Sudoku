@@ -2,7 +2,7 @@ import Logic
 import Boards
 
 {- printBoard board
-     An IO function that prints a more aesthetically and intiutive pleasing Sudoku board instead of the initial lists within lists layout.
+     An IO function that prints a more aesthetically and intuitive  pleasing Sudoku board instead of the initial lists within lists layout.
      PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
      SIDE EFFECTS: Prints out the Sudoku in the terminal.
      EXAMPLES: printBoard boardEasy ==       1   2   3   4   5   6   7   8   9  

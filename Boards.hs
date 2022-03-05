@@ -96,7 +96,7 @@ boardempty = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
--- Made for testing. Unable to solve.
+-- For testing
 boardImpossible :: Board
 boardImpossible = [
            [0,3,5,8,2,9,7,1,6],

@@ -6,9 +6,9 @@ module Logic where
 type Board = [[Int]]
 
  {- solve board
-     A function that combines multiple functions to solve a Sudoku board using backtracing. 
+     A function that combines multiple functions to solve a Sudoku board using backtracking. 
      PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
-     RETURNS: A finished sudoku board or a empty list if it's not possible to solve given Sudoku board.
+     RETURNS: A finished sudoku board or an empty list if it's not possible to solve given Sudoku board.
      EXAMPLES: solve boardEasy == [[5,3,4,8,2,9,7,1,6],[9,6,1,4,5,7,8,2,3],[8,7,2,3,6,1,5,4,9],[2,4,8,9,1,3,6,5,7],
                                   [6,1,7,2,8,5,3,9,4],[3,5,9,7,4,6,1,8,2],[4,2,3,5,7,8,9,6,1],[1,9,5,6,3,2,4,7,8],[7,8,6,1,9,4,2,3,5]]
                 Note: boardEasy can be found in file "Boards".
@@ -27,7 +27,7 @@ solve board
                     x = solve (insert board row column value)
 
 {- insert board row column value
-     A function that insert, or rather replace, a value into Board.
+     A function that inserts, or rather replace, a value into Board.
      PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0. Row and column must be a int between 1..9.
      RETURNS: A modified board with value replaced the intended cell.
      EXAMPLES: insert boardEasy 1 1 5 == [[5,3,0,8,2,0,0,1,0],[0,6,1,4,5,7,8,2,3],[8,7,0,0,0,1,0,0,0],[2,4,8,0,0,3,0,5,7],
@@ -36,12 +36,10 @@ solve board
   -}
 insert :: Board -> Int -> Int -> Int -> Board
 insert [] _ _ _ = []
-insert board row column value = take (row - 1) board ++ insertAux (board !! (row-1)) column value : drop row board
-    where insertAux :: [Int] -> Int -> Int -> [Int]
-          insertAux [] _ _ = []
-          insertAux (x:xs) c value
-               | checkRules board row column value = take (c - 1) (x:xs) ++ value : drop c (x:xs)
-               | otherwise = x:xs
+insert board row column value = take (row - 1) board ++ insert' (board !! (row-1)) column value : drop row board
+    where 
+          insert' [] _ _ = []
+          insert' board column value = take (column - 1) board ++ value : drop column board
 
 {- checkRow board row value
      A function that checks if value doesn't exist within a specified row in the board.
@@ -90,7 +88,8 @@ checkBox board row column value
     | row <= 6 && row > 3 && column <= 9 && column > 6 = value `notElem` checkBox' board 4 7
     | otherwise = value `notElem` checkBox' board 7 7
         where
-            checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++ take 3 (drop (column-1) (board !! (row+1)))
+            checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++
+             take 3 (drop (column-1) (board !! (row+1)))
 
 {- checkRules board row column value
      A function that combines multiple functions, checkRow, checkColumn and checkBox, and checks if all of the condition are True.
@@ -129,6 +128,8 @@ find0 board = (findRow board, findColumn (board !! (findRow board - 1)))
         findColumn (x:xs) 
             | x == 0 = 9 - length xs
             | otherwise = findColumn xs
+
+-- IO auxiliary functions
 
 {- validAnswer board row column value
     A function that checks if inserted value is the right answer within given cell.
