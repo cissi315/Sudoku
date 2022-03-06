@@ -2,7 +2,7 @@ import Logic
 import Boards
 
 {- printBoard board
-     An IO function that prints a more aesthetically and intuitive  pleasing Sudoku board instead of the initial lists within lists layout.
+     An IO function that prints a more aesthetically and intuitive pleasing Sudoku board instead of the initial lists within lists layout.
      PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
      SIDE EFFECTS: Prints out the Sudoku in the terminal.
      EXAMPLES: printBoard boardEasy ==       1   2   3   4   5   6   7   8   9  
@@ -39,7 +39,7 @@ printBoard board = mapM_ putStrLn (startingRow : printBoard' board 0)
         startingRow = "     1   2   3   4   5   6   7   8   9  "
 
 {- game board 
-     An IO function that progress the game. It process the player's inputs and also determines if he or she has won.
+     An IO function that progresses the game. It processes the player's inputs and determines if he or she has won.
      PRE:  The imported sudoku must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
      SIDE EFFECTS: Prints out the current board state and questions regardning which row, column, and value the player wants to insert. 
                    Restarts program when the player has won.
