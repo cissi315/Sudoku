@@ -24,10 +24,40 @@ import Boards
 printBoard :: Board -> IO ()
 printBoard board = mapM_ putStrLn (startingRow : printBoard' board 0)
     where
+        {- printBoard' board acc
+            A function that creates a corresponding board out of strings by appending inidividual components of the board.
+            PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+            RETURNS: A corresponding board out of strings.
+            EXAMPLES: printBoard' boardEasy _ == [  "   1   2   3   4   5   6   7   8   9  ",
+                                                  " +-----------+-----------+-----------+ ",
+                                                "1  |           printBoard'' X          |",
+                                                "2  |           printBoard'' x          |",
+                                                "3  |           printBoard'' x          |",
+                                                "   +-----------+-----------+-----------+",
+                                                "4  |           printBoard'' x          |",
+                                                "5  |           printBoard'' x          |",
+                                                "6  |           printBoard'' x          |",
+                                                "   +-----------+-----------+-----------+",
+                                                "7  |           printBoard'' x          |",
+                                                "8  |           printBoard'' x          |",
+                                                "9  |           printBoard'' x          |",
+                                                "   +-----------+-----------+-----------+" ]
+                    Note: boardEasy can be found in file "Boards".
+        -}
+        printBoard' :: Board -> Int -> [String]
+        -- VARIANT: length board 
         printBoard' [] acc = [seperateRow]
         printBoard' (x:xs) acc | mod acc 3 == 0 = seperateRow : (intToString (acc+1) ++ "  | " ++ printBoard'' x ++ " |") : printBoard' xs (acc+1)
                                | otherwise = (intToString (acc+1) ++ "  | " ++ printBoard'' x ++ " |") : printBoard' xs (acc+1)
-
+        {- printBoard'' x
+                    A function that creates a corresponding board out of strings by appending inidividual components of the board.
+                    PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+                    RETURNS: A corresponding board out of strings.
+                    EXAMPLES: printBoard'' x == " _ | 3 | _ | 8 | 2 | _ | _ | 1 | _ " 
+                            Note: x is deriving from boardEasy, which can be found in file "Boards".
+                -}
+        printBoard'' :: [Int] -> String
+        -- VARIANT: length x
         printBoard'' [] = "|"
         printBoard'' [x] = intToString x
         printBoard'' (x:xs) = intToString x ++ " | " ++ printBoard'' xs

@@ -19,6 +19,17 @@ solve board
     | find0 board == (9,0) = board
     | otherwise = solve' board (find0 board) 1
     where
+        {- solve' board (row,column) acc
+            A function that receives the coordinates of the first available zero on the board and asserts if a number between 1 to 9, starting from 1,
+            is allowed within the cell or not. If none of the numbers are permitted and the function reaches number 10 it indicates that the base case has been reached.
+            PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+            RETURNS: An empty list if none of the values between 1 to 9 works, otherwise a modified board with the right value inserted into the cell. 
+            EXAMPLES: solve boardEasy (find0 boardEasy == (1,1)) (1+1+1+1+1) == [[5,3,0,8,2,0,0,1,0],[0,6,1,4,5,7,8,2,3],[8,7,0,0,0,1,0,0,0],[2,4,8,0,0,3,0,5,7],[6,1,0,2,8,0,0,9,0],
+                                                            [0,0,0,7,4,0,0,8,0],[4,0,3,5,7,8,9,6,0],[1,0,5,0,0,0,4,7,0],[0,8,0,1,0,4,0,3,5]]
+                        Note: boardEasy can be found in file "Boards".
+             -}
+        solve' :: Board -> (Int, Int) -> Int -> Board
+        -- VARIANT: 10 - acc
         solve' board (row,column) 10 = [[]]
         solve' board (row,column) value
             | checkRules board row column value && x /= [[]] = x
@@ -38,8 +49,15 @@ insert :: Board -> Int -> Int -> Int -> Board
 insert [] _ _ _ = []
 insert board row column value = take (row - 1) board ++ insert' (board !! (row-1)) column value : drop row board
     where 
-          insert' [] _ _ = []
-          insert' board column value = take (column - 1) board ++ value : drop column board
+        {- insert' row column value
+            A function that creates a modified board with the intended value inserted into the board.
+            PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+            RETURNS: A modified row with value replacing the intended cell.
+            EXAMPLES: insert' [0,3,0,8,2,0,0,1,0] 3 9 == [0,3,9,8,2,0,0,1,0]
+            -}
+        insert' :: [Int] -> Int -> Int -> [Int]
+        insert' [] _ _ = []
+        insert' row column value = take (column - 1) row ++ value : drop column row
 
 {- checkRow board row value
      A function that checks if value doesn't exist within a specified row in the board.
@@ -88,6 +106,13 @@ checkBox board row column value
     | row <= 6 && row > 3 && column <= 9 && column > 6 = value `notElem` checkBox' board 4 7
     | otherwise = value `notElem` checkBox' board 7 7
         where
+            {- checkBox' board row column
+                A function that creates a list for checkBox to compare with.
+                PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0. Row and column must be a int between 1..9.
+                RETURNS: The intended box as a list.
+                EXAMPLES: checkBox' boardEasy 7 7 == [9,6,0,4,7,0,0,3,5]
+            -}
+            checkBox' :: Board -> Int -> Int -> [Int]
             checkBox' board row column = take 3 (drop (column-1) (board !! (row - 1))) ++ take 3 (drop (column-1) (board !! row)) ++
              take 3 (drop (column-1) (board !! (row+1)))
 
@@ -112,6 +137,13 @@ find0 :: Board -> (Int, Int)
 -- VARIANT: length board
 find0 board = (findRow board, findColumn (board !! (findRow board - 1)))
     where
+        {- findRow board
+            A function that finds the coordinate of the row with the first empty cell, a zero, in the sudoku board. Starting from upper left side.
+            PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+            RETURNS:  The coordinate of the row with the first empty cell as a int between 0 to 9.
+            EXAMPLES: findRow emptyBoard == 1
+         -}
+        findRow :: Board -> Int
         findRow [] = 0
         findRow board
             | 0 `elem` (board !! 0) = 1 
@@ -124,6 +156,14 @@ find0 board = (findRow board, findColumn (board !! (findRow board - 1)))
             | 0 `elem` (board !! 7) = 8
             | otherwise = 9
 
+        {- findColumn row
+            A function that finds the coordinate of the column with the first empty cell, a zero, in the sudoku board.
+            PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0.
+            RETURNS:  The coordinate of the column with the first empty cell as a int between 0 to 9.
+            EXAMPLES: findColumn emptyBoard == 1
+         -}
+        findColumn :: [Int] -> Int
+        -- VARIANT: length row
         findColumn [] = 0
         findColumn (x:xs) 
             | x == 0 = 9 - length xs
@@ -132,7 +172,7 @@ find0 board = (findRow board, findColumn (board !! (findRow board - 1)))
 -- IO auxiliary functions
 
 {- validAnswer board row column value
-    A function that checks if inserted value is the right answer within given cell.
+    A function that checks if inserted value is equal to the answer within given cell.
      PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0. Row and column must be a int between 1..9.
      RETURNS: A boolean answer True if the value is equal to the right answer, otherwise False.
      EXAMPLES: validAnswer boardEasy 1 1 5 == True
@@ -145,6 +185,15 @@ validAnswer board row column value
     | (board !! (row-1) !! (column-1)) /= 0 = False 
     | otherwise = validAnswer' (solve board) row column value
         where
+            {- validAnswer' board row column value
+                A function that checks if inserted value is equal to the answer within given cell.
+                PRE:  The Sudoku board must be the standard dimensions by 9X9 cells. Empty cells must be represented as int 0. Row and column must be a int between 1..9.
+                RETURNS: A boolean answer True if the value is equal to the right answer, otherwise False.
+                EXAMPLES: validAnswer' (solve boardEasy) 1 1 5 == True
+                          validAnswer' (solve boardEasy) 1 1 6 == False
+                            Note: boardEasy can be found in file "Boards".
+                 -}
+            validAnswer' :: Board -> Int -> Int -> Int -> Bool
             validAnswer' board row column value 
                 | (board !! (row-1) !! (column-1)) == value = True 
                 | otherwise = False
